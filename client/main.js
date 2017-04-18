@@ -2,7 +2,8 @@ const InputHandler = require('./input-handler.js');
 const Grid = require('./grid.js');
 const P5 = require('p5');
 
-const input = new InputHandler("I'm so happy");
+const submit = document.querySelector('#submit');
+const inputField = document.querySelector('#response');
 
 const renderer = new P5((p) => {
   function drawCells(x, y, w, h, grid) {
@@ -22,8 +23,7 @@ const renderer = new P5((p) => {
     p.pop();
   }
 
-  p.setup = () => {
-    p.createCanvas(800, 500);
+  function render(input) {
     p.background(250);
     p.noStroke();
     p.fill(200);
@@ -31,5 +31,14 @@ const renderer = new P5((p) => {
       const grid = new Grid(rule, 300, 50);
       drawCells(100, (i + 1) * 70, 600, 70, grid);
     });
+  }
+
+  p.setup = () => {
+    p.createCanvas(800, 500);
+    render(new InputHandler('Hello there'));
   };
+
+  submit.addEventListener('click', () => {
+    render(new InputHandler(inputField.value));
+  })
 });

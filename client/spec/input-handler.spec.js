@@ -1,4 +1,4 @@
-const InputHandler = require('../src/input-handler')
+const InputHandler = require('../input-handler')
 
 const correctRuleSet = [
   [1, 1, 0, 1, 1, 1, 0, 1],

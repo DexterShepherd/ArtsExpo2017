@@ -1,4 +1,4 @@
-const Grid = require('../src/grid');
+const Grid = require('../grid');
 
 const rule = [1, 1, 0, 1, 1, 1, 0, 1];
 const neighborhood = [1, 1, 1];

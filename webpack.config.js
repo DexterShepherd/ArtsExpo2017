@@ -1,13 +1,16 @@
+const webpack = require('webpack');
+
 module.exports = {
-  entry: './src/main.js',
+  entry: './client/main.js',
   output: {
-    path: './',
-    file: 'bundle.js'
+    file: 'bundle.js',
+    publicPath: '/client/',
+    path: __dirname + '/client'
   },
 
   devServer: {
     inline: true,
-    port: 3333
+    port: 3333,
   },
 
   module: {
@@ -18,9 +21,14 @@ module.exports = {
         loader: 'babel',
 
         query: {
-          presets: ['es2015'] 
-        }
-      }
-    ] 
-  }
+          presets: ['es2015'],
+        },
+      },
+    ],
+  },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+  ]
 }
