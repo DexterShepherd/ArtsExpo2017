@@ -2,8 +2,11 @@ const InputHandler = require('./input-handler.js');
 const Grid = require('./grid.js');
 const P5 = require('p5');
 
+const body = document.querySelector('body');
 const submit = document.querySelector('#submit');
 const inputField = document.querySelector('#response');
+const backgroundColor = '#ffffff';
+const foregroundColor = '#cccccc';
 
 const renderer = new P5((p) => {
   function drawCells(x, y, w, h, grid) {
@@ -21,9 +24,9 @@ const renderer = new P5((p) => {
   }
 
   function render(input) {
-    p.background(250);
+    p.background(backgroundColor);
     p.noStroke();
-    p.fill(200);
+    p.fill(foregroundColor);
     p.push();
     p.translate(100, 100);
     input.rules.forEach((rule, i) => {
@@ -36,11 +39,18 @@ const renderer = new P5((p) => {
   }
 
   p.setup = () => {
-    p.createCanvas(800, 500);
+    body.bgColor = backgroundColor;
+    body.style.color = foregroundColor;
+    const canvas = p.createCanvas(800, 500);
+    canvas.parent(document.querySelector('.canvas-container'));
     render(new InputHandler('Hello there'));
   };
 
   submit.addEventListener('click', () => {
-    render(new InputHandler(inputField.value));
+    const response = inputField.value;
+    render(new InputHandler(response));
+    p.httpPost('/', 'json', {
+      data: response
+    });
   })
 });
